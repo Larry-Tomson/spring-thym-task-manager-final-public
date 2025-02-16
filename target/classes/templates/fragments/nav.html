@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <title></title>
+</head>
+
+<body th:fragment="nav">
+    <p>> <a th:href="@{/home}"> Home</a></p>
+    <p>> <a th:href="@{/tasks}"> List all</a></p>
+    <p>> <a href="javascript: document.logoutForm.submit()" role="menuitem"> Logout</a></p>
+
+
+    <form name="logoutForm" th:action="@{/logout}" method="post" hidden>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <input type="submit" value="Sign Out" />
+    </form>
+
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+-------------------------------------------------------------------------------
+Test set: com.luhtom.task_manager_final.controller.TaskControllerTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 2.644 s <<< FAILURE! -- in com.luhtom.task_manager_final.controller.TaskControllerTest
+com.luhtom.task_manager_final.controller.TaskControllerTest.testShowEditForm_taskFound -- Time elapsed: 2.456 s <<< ERROR!
+org.springframework.security.core.userdetails.UsernameNotFoundException: User not found for testuser
+	at com.luhtom.task_manager_final.controller.TaskController.getUser(TaskController.java:176)
+	at com.luhtom.task_manager_final.controller.TaskController.showEditForm(TaskController.java:118)
+	at com.luhtom.task_manager_final.controller.TaskControllerTest.testShowEditForm_taskFound(TaskControllerTest.java:97)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+com.luhtom.task_manager_final.controller.TaskControllerTest.testDeleteTask -- Time elapsed: 0.040 s <<< ERROR!
+org.springframework.web.server.ResponseStatusException: 404 NOT_FOUND "Task not found"
+	at com.luhtom.task_manager_final.controller.TaskController.deleteTask(TaskController.java:64)
+	at com.luhtom.task_manager_final.controller.TaskControllerTest.testDeleteTask(TaskControllerTest.java:76)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+com.luhtom.task_manager_final.controller.TaskControllerTest.testShowCreateForm -- Time elapsed: 0.011 s <<< ERROR!
+org.springframework.security.core.userdetails.UsernameNotFoundException: User not found for testuser
+	at com.luhtom.task_manager_final.controller.TaskController.getUser(TaskController.java:176)
+	at com.luhtom.task_manager_final.controller.TaskController.showCreateForm(TaskController.java:101)
+	at com.luhtom.task_manager_final.controller.TaskControllerTest.testShowCreateForm(TaskControllerTest.java:84)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+com.luhtom.task_manager_final.controller.TaskControllerTest.testCreateTask_withBindingErrors -- Time elapsed: 0.027 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "org.springframework.ui.Model.addAttribute(String, Object)" because "model" is null
+	at com.luhtom.task_manager_final.controller.TaskController.createTask(TaskController.java:45)
+	at com.luhtom.task_manager_final.controller.TaskControllerTest.testCreateTask_withBindingErrors(TaskControllerTest.java:66)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
