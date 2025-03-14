@@ -1,21 +1,39 @@
-# Read Me First
-The following was discovered as part of building this project:
+# Task Manager Web Application
 
-* The original package name 'com.luhtom.task-manager-final' is invalid and this project uses 'com.luhtom.task_manager_final' instead.
+Simple task manager web application that allow user to register/login and managing tasks.
 
-# Getting Started
+## Setup
+Setup and Running
+```bash
+git clone https://github.com/Larry-Tomson/spring-thym-task-manager-final-public
+cd spring-thym-task-manager-final-public
+```
+Build
+```bash 
+mvn clean install
+```
 
-### Reference Documentation
-For further reference, please consider the following sections:
+Run
+```bash
+mvn spring-boot:run
+```
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/3.4.2/maven-plugin)
-* [Create an OCI image](https://docs.spring.io/spring-boot/3.4.2/maven-plugin/build-image.html)
+Default port : [localhost:8069](http://localhost:8069)
 
-### Maven Parent overrides
+## Key points 
+- User registration and authentication.
+- Task creation and management
+- Form validation
+- JPARepository ORM with H2 database.
 
-Due to Maven's design, elements are inherited from the parent POM to the project POM.
-While most of the inheritance is fine, it also inherits unwanted elements like `<license>` and `<developers>` from the parent.
-To prevent this, the project POM contains empty overrides for these elements.
-If you manually switch to a different parent and actually want the inheritance, you need to remove those overrides.
+## Security and authentication
+- Using `SecurityFilterChain` for require authentication and redirecting login/logout.
+- Injects `DaoAuthenticationProvider` and implements `UserDetailsService` for authentication.
+- Injects `PasswordEncoder` and uses BCryptPasswordEncoder() to hash password.
 
+## Flow
+1. Serve `login.html` for unauthenticated user.
+2. Authenticate/Register new user then serve landing page
+3. Handling request routing.
+4. Handing task creation, update, read, delete.
+5. Save to in-memory database

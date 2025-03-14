@@ -28,6 +28,7 @@ public class User {
 
     @NotBlank(message = "Password is required")
     @Column(nullable = false)
+    @Size(min = 8, message = "Password must be more than 8 characters")
     private String password;
 
     private String role;
@@ -36,7 +37,7 @@ public class User {
     private List<Task> tasks = new ArrayList<>();
 
     @NotBlank(message = "Username is required")
-    @Size(max = 50, message = "Username must be less than 50 characters")
+    @Size(min = 3, max = 50, message = "Username must be less than 50 and more than 3 characters")
     @Column(nullable = false, unique = true)
     private String username;
 }

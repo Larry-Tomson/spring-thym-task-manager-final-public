@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.luhtom.task_manager_final.TaskManagerFinalApplicationTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.490 s -- in com.luhtom.task_manager_final.TaskManagerFinalApplicationTests
