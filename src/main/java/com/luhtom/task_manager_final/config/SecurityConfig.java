@@ -16,7 +16,8 @@ import org.springframework.security.web.SecurityFilterChain;
  * Simple spring security authentication configuration CONFIGURATION
  *
  * <p>
- * public API endpoints := {"/register", "/h2-console/**", "/css/**"}, other endpoints are required
+ * public API endpoints := {"/register", "/h2-console/**", "/css/**"},
+ *  other endpoints are required
  * to be authenticated
  *
  * <p>
@@ -34,11 +35,16 @@ public class SecurityConfig {
     }
 
     /*
-     * Google Java Style doesn't support lambda formatting well enough, local variables in lambda for
+     * Google Java Style doesn't support lambda formatting well enough,
+     *  local variables in lambda for
      * every trailing methods is added.
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        /* h2 config */
+        http.csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"));
+        http.headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()));
+
         http.authorizeHttpRequests(auth -> {
             auth.requestMatchers("/h2-console/**").permitAll();
             auth.requestMatchers("/favicon.svg").permitAll();
