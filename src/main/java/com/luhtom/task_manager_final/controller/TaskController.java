@@ -10,6 +10,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import lombok.extern.log4j.Log4j2;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -49,7 +54,7 @@ public class TaskController {
         final User currentUser = getUser();
         task.setUser(currentUser);
         log.debug("POST::CREATE::Creating task for username: {}, title: {}", currentUser.getUsername(),
-                        task.getTitle());
+                task.getTitle());
         taskService.save(task);
         return "redirect:/tasks";
     }
@@ -69,12 +74,50 @@ public class TaskController {
 
         if (!task.getUser().getId().equals(currentUser.getId())) {
             log.error("POST::DELETE: Unauthorized deletion attempt by user: {} on task id: {}",
-                            currentUser.getUsername(), id);
+                    currentUser.getUsername(), id);
             throw new AccessDeniedException("You are not allowed to delete this task");
         }
 
         taskService.deleteById(id);
         return "redirect:/tasks";
+    }
+
+    @GetMapping("/feature")
+    public String listTasks(
+            @RequestParam(required = false) TaskStatus status,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "createdAt") String sortBy,
+            @RequestParam(defaultValue = "desc") String direction,
+            Model model) {
+
+        final User currentUser = getUser();
+        Sort sort = direction.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+        final int PAGE_SIZE = 10;
+        final Pageable pageable = PageRequest.of(page, PAGE_SIZE, sort);
+        Page<Task> taskPage;
+
+        if (status != null) {
+            taskPage = taskService.findByUserAndStatus(currentUser, status, pageable);
+        } else {
+            taskPage = taskService.findByUser(currentUser, pageable);
+        }
+
+        log.info("GET::LIST: Rendering task list for user: {}, page: {}, sort: {}, direction: {}",
+                currentUser.getUsername(), page, sortBy, direction);
+
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", taskPage.getTotalPages());
+        model.addAttribute("totalItems", taskPage.getTotalElements());
+        model.addAttribute("tasks", taskPage.getContent());
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("direction", direction);
+        model.addAttribute("reversedDirection", direction.equals("asc") ? "desc" : "asc");
+        model.addAttribute("currentStatus", status);
+        model.addAttribute("statuses", TaskStatus.values());
+        model.addAttribute("username", currentUser.getUsername());
+        model.addAttribute("role", currentUser.getRole());
+
+        return "tasks/list";
     }
 
     @GetMapping
@@ -132,7 +175,7 @@ public class TaskController {
 
     @PostMapping("/{id}")
     public String updateTask(@PathVariable Long id, @Valid @ModelAttribute("task") Task task,
-                    BindingResult bindingResult, Model model) {
+            BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
             final List<ObjectError> allErrors = bindingResult.getAllErrors();
@@ -155,7 +198,7 @@ public class TaskController {
 
         if (!existingTask.getUser().getId().equals(currentUser.getId())) {
             log.error("POST::EDIT: Unauthorized update attempt by user: {} on task id: {}", currentUser.getUsername(),
-                            id);
+                    id);
             throw new AccessDeniedException("You are not allowed to update this task");
         }
 

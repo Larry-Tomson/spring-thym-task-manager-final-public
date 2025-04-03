@@ -2,10 +2,14 @@
 package com.luhtom.task_manager_final.service;
 
 import com.luhtom.task_manager_final.model.Task;
+import com.luhtom.task_manager_final.model.TaskStatus;
 import com.luhtom.task_manager_final.model.User;
 import com.luhtom.task_manager_final.repository.TaskRepository;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -32,4 +36,14 @@ public class TaskService {
     public Task save(Task task) {
         return taskRepository.save(task);
     }
+
+    /* page */
+    public Page<Task> findByUser(User user, Pageable pageable) {
+        return taskRepository.findByUserPageable(user, pageable);
+    }
+
+    public Page<Task> findByUserAndStatus(User user, TaskStatus status, Pageable pageable) {
+        return taskRepository.findByUserAndStatus(user, status, pageable);
+    }
+
 }
