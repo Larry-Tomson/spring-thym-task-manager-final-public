@@ -2,8 +2,7 @@
 
 Simple task manager web application that allow user to register/login and managing tasks.
 
-## Setup
-Setup and Running
+## Installation and running
 ```bash
 git clone https://github.com/Larry-Tomson/spring-thym-task-manager-final-public
 cd spring-thym-task-manager-final-public
@@ -17,23 +16,34 @@ Run
 ```bash
 mvn spring-boot:run
 ```
+Application endpoint Default port : [localhost:8069](http://localhost:8069)
+Edit endpoint[here](src\main\resources\application.properties)
+## Requirement
+- **Java Development Kit (JDK) 11 or later**  
+  The project requires JDK 11 or above.  
+  - [Download OpenJDK](https://jdk.java.net/)
+  - [Oracle JDK](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html).
 
-Default port : [localhost:8069](http://localhost:8069)
+- **Apache Maven 3.6.0 or later**  
+  Maven is used to manage the project build lifecycle and dependencies.  
+  [Maven Installation Guide](https://maven.apache.org/install.html)
 
-## Key points 
+
+## Feature
 - User registration and authentication.
-- Task creation and management
-- Form validation
-- JPARepository ORM with H2 database.
+- Task create, read, update and delete.
+- Task with status and user-specific data.
 
-## Security and authentication
-- Using `SecurityFilterChain` for require authentication and redirecting login/logout.
-- Injects `DaoAuthenticationProvider` and implements `UserDetailsService` for authentication.
-- Injects `PasswordEncoder` and uses BCryptPasswordEncoder() to hash password.
+## Stack
+- Backend: Spring Boot
+- Security: Spring Security
+- Database: H2 embeded database
+- Frontend: Thymeleaf template framework
 
-## Flow
-1. Serve `login.html` for unauthenticated user.
-2. Authenticate/Register new user then serve landing page
-3. Handling request routing.
-4. Handing task creation, update, read, delete.
-5. Save to in-memory database
+## DEMO
+### Login and Register
+![Login and Register](media/login-register.gif)
+### List and Create Task
+![Login and Register](media/list-create.gif)
+### Edit and Delete Task
+![Login and Register](media/edit-delete.gif)

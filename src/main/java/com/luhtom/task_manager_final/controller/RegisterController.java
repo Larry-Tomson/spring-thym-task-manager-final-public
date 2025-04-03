@@ -5,8 +5,6 @@ import com.luhtom.task_manager_final.model.User;
 import com.luhtom.task_manager_final.service.UserService;
 import jakarta.validation.Valid;
 
-import static org.mockito.ArgumentMatchers.refEq;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
