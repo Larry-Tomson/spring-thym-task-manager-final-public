@@ -9,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
@@ -19,14 +20,16 @@ public class TaskManagerFinalApplication {
     }
 
     @Bean
+    @Profile("dev")
+    // add to application.properties spring.profiles.active=development
     CommandLineRunner runner(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         return args -> {
-            final User user = new User();
-            user.setUsername("a");
-            user.setPassword(passwordEncoder.encode("a"));
-            user.setRole("User");
-            user.setLastLoginDate(LocalDateTime.now());
-            userRepository.save(user);
+            final User adminUser = new User();
+            adminUser.setUsername("admin");
+            adminUser.setPassword(passwordEncoder.encode("admin"));
+            adminUser.setRole("User");
+            adminUser.setLastLoginDate(LocalDateTime.now());
+            userRepository.save(adminUser);
         };
     }
 }
