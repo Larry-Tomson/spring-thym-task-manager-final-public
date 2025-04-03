@@ -1,6 +1,12 @@
 # Task Manager Web Application
+## [日本語説明書](media/README_ja.md)
 
-Simple task manager web application that allow user to register/login and managing tasks.
+Task Manager web application that allow user to register/login and managing tasks.
+
+### Feature
+- User registration and authentication.
+- Task create, read, update and delete.
+- Task with status and user-specific data.
 
 ## Installation and running
 ```bash
@@ -28,11 +34,6 @@ Edit endpoint[here](src\main\resources\application.properties)
   Maven is used to manage the project build lifecycle and dependencies.  
   [Maven Installation Guide](https://maven.apache.org/install.html)
 
-
-## Feature
-- User registration and authentication.
-- Task create, read, update and delete.
-- Task with status and user-specific data.
 
 ## Stack
 - Backend: Spring Boot
