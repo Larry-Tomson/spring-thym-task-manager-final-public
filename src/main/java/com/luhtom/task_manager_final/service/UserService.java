@@ -58,6 +58,7 @@ public class UserService implements ApplicationListener<AuthenticationSuccessEve
 
     public User save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole("USER");
         return userRepository.save(user);
     }
 }

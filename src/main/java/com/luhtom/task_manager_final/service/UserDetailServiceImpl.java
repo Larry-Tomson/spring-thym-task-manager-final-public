@@ -21,12 +21,13 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        final Optional<User> oUser = userRepository.findByUsername(username);
-        final User user = oUser.orElseThrow(() -> new UsernameNotFoundException( //
-                        "No user found with username : " + username));
+        final Optional<User> user = userRepository.findByUsername(username);
+        final User userModel = user.orElseThrow(() -> new UsernameNotFoundException( //
+                "No user found with username : " + username));
 
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), //
-                        user.getPassword(), //
-                        Collections.singletonList(new SimpleGrantedAuthority("USER")));
+        return new org.springframework.security.core.userdetails.User( //
+                userModel.getUsername(), //
+                userModel.getPassword(), //
+                Collections.singletonList(new SimpleGrantedAuthority(userModel.getRole())));
     }
 }
